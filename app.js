@@ -39,8 +39,8 @@ app.get('/cuopon/:owner/:cp', (req, res) => {
   res.send({ data: false });
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(process.env.port || port, () => {
+  console.log(`Example app listening on port ${process.env.port || port}`);
 })
 
 function generateCoupon() {
