@@ -8,20 +8,33 @@ app.get('/', (req, res) => {
   res.send('This is your very best cuopon provider! Use it with care.');
 })
 
-app.get('/create/:owner', (req, res) => {
+app.get('/cuopon/:owner', (req, res) => {
+  if (!['purple', 'yellow'].includes(req.params.owner)) {
+    res.send({ error: 'ERROR. Wrong owner.' });
+    return;
+  }
+
   const c = generateCoupon();
   while (cuopons.find(x => x.id === c)) {
     c = generateCoupon();
   }
-  cuopons.push({ id: c, owner: req.params.owner, discount: 10 });
-  console.log('Current cuopons: ' + cuopons);
-  res.send({ data: c });
+  const newCuopon = { id: c, owner: req.params.owner, discount: 10 };
+  cuopons.push(newCuopon);
+  console.log('Current cuopons: ' + cuopons.map(x => x.id));
+  res.send({ data: newCuopon });
 })
 
-app.get('/apply/:cp', (req, res) => {
-  if (cuopons.includes(req.params.cp)) {
-    cuopons.splice(cuopons.indexOf(req.params.cp), 1);
+app.get('/cuopon/:owner/:cp', (req, res) => {
+  const foundCuopon = cuopons.find(x => x.id == req.params.cp);
+  if (foundCuopon) {
+    if (foundCuopon.owner == req.params.owner) {
+      res.send({ error: 'You cannot use your own cuopon!' });
+      return;
+    }
+
+    cuopons = cuopons.filter(x => x.id != req.params.cp);
     res.send({ data: true });
+    return;
   }
   res.send({ data: false });
 })
