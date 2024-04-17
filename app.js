@@ -8,7 +8,7 @@ app.get('/', (req, res) => {
   res.send('This is your very best cuopon provider! Use it with care.');
 })
 
-app.get('/cuopon/:owner', (req, res) => {
+app.get('/coupon/:owner', (req, res) => {
   if (!['purple', 'yellow'].includes(req.params.owner)) {
     res.send({ error: 'ERROR. Wrong owner.' });
     return;
@@ -20,15 +20,15 @@ app.get('/cuopon/:owner', (req, res) => {
   }
   const newCuopon = { id: c, owner: req.params.owner, discount: 10 };
   cuopons.push(newCuopon);
-  console.log('Current cuopons: ' + cuopons.map(x => x.id));
+  console.log('Current coupons: ' + cuopons.map(x => x.id));
   res.send({ data: newCuopon });
 })
 
-app.get('/cuopon/:owner/:cp', (req, res) => {
+app.get('/coupon/:owner/:cp', (req, res) => {
   const foundCuopon = cuopons.find(x => x.id == req.params.cp);
   if (foundCuopon) {
     if (foundCuopon.owner == req.params.owner) {
-      res.send({ error: 'You cannot use your own cuopon!' });
+      res.send({ error: 'You cannot use your own coupon!' });
       return;
     }
 
@@ -40,7 +40,7 @@ app.get('/cuopon/:owner/:cp', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Coupon app listening on port ${port}`);
+  console.log(`coupon app listening on port ${port}`);
 })
 
 function generateCoupon() {
