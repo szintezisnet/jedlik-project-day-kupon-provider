@@ -40,7 +40,7 @@ app.get('/cuopon/:owner/:cp', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Coupon app listening on port ${port}`);
 })
 
 function generateCoupon() {
