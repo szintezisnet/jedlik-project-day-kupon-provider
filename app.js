@@ -1,6 +1,6 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const app = express();
+const port = 3000;
 
 var cuopons = [];
 
@@ -8,12 +8,12 @@ app.get('/', (req, res) => {
   res.send('This is your very best cuopon provider! Use it with care.');
 })
 
-app.get('/create', (req, res) => {
+app.get('/create/:owner', (req, res) => {
   const c = generateCoupon();
-  while (cuopons.includes(c)) {
+  while (cuopons.find(x => x.id === c)) {
     c = generateCoupon();
   }
-  cuopons.push(c);
+  cuopons.push({ id: c, owner: req.params.owner, discount: 10 });
   console.log('Current cuopons: ' + cuopons);
   res.send({ data: c });
 })
