@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "name": "kuponprovider",
+  "version": "1.0.0",
+  "description": "kupon provider",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "author": "zrajkai",
+  "license": "MIT"
+}
